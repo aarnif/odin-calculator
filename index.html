@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Odin Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
   </head>
@@ -13,39 +19,49 @@
         <div class="display"></div>
 
         <div class="button-row">
-          <button id="clear">C</button>
-          <button id="backspace">⬅</button>
+          <button id="clear" class="delete-button">C</button>
+          <button id="backspace" class="delete-button">⬅</button>
           <button id="sign" ,>+/-</button>
-          <button id="/">/</button>
         </div>
 
         <div class="button-row">
-          <button id="7">7</button>
-          <button id="8">8</button>
-          <button id="9">9</button>
+          <button id="7" class="operand-button">7</button>
+          <button id="8" class="operand-button">8</button>
+          <button id="9" class="operand-button">9</button>
+          <button id="÷">÷</button>
+        </div>
+
+        <div class="button-row">
+          <button id="4" class="operand-button">4</button>
+          <button id="5" class="operand-button">5</button>
+          <button id="6" class="operand-button">6</button>
           <button id="*">*</button>
         </div>
 
         <div class="button-row">
-          <button id="4">4</button>
-          <button id="5">5</button>
-          <button id="6">6</button>
+          <button id="1" class="operand-button">1</button>
+          <button id="2" class="operand-button">2</button>
+          <button id="3" class="operand-button">3</button>
           <button id="-">-</button>
         </div>
 
         <div class="button-row">
-          <button id="1">1</button>
-          <button id="2">2</button>
-          <button id="3">3</button>
+          <button class="operand-button" id="0">0</button>
+          <button id="." class="operand-button">.</button>
+          <button id="=">=</button>
           <button id="+">+</button>
         </div>
-
-        <div class="button-row">
-          <button class="button-zero" id="0">0</button>
-          <button id=".">.</button>
-          <button id="=">=</button>
-        </div>
       </div>
+      <footer>
+        <div id="footer-text">Created By aarnif</div>
+        <a href="https://github.com/aarnif" target="_blank" rel="noreferrer"
+          ><img
+            id="github-icon"
+            src="assets/images/github.svg"
+            alt="GitHub Profile Link"
+          />
+        </a>
+      </footer>
     </div>
   </body>
 </html>

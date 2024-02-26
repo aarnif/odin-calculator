@@ -131,3 +131,6 @@ dist
 
 # Visual studio code related directory
 .vscode
+
+# macOS operating system related file
+.DS_Store

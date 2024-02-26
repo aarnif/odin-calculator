@@ -15,8 +15,8 @@ const operandButtons = [
   ".",
   "sign",
 ];
-const operatorButtons = ["+", "-", "*", "/"];
-const maxDisplayWidth = 15;
+const operatorButtons = ["+", "-", "*", "÷"];
+const maxDisplayWidth = 10;
 
 let firstOperand = null;
 let secondOperand = null;
@@ -36,7 +36,7 @@ const operate = (operator, a, b) => {
     "+": add(a, b),
     "-": subtract(a, b),
     "*": multiply(a, b),
-    "/": divide(a, b),
+    "÷": divide(a, b),
   };
 
   return calculations[operator];
@@ -132,7 +132,7 @@ const evaluate = () => {
 };
 
 const divideByZero = () => {
-  return (firstOperand == 0 || secondOperand == 0) && operator == "/";
+  return (firstOperand == 0 || secondOperand == 0) && operator == "÷";
 };
 
 const clickEqual = () => {
