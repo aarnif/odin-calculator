@@ -179,6 +179,43 @@ buttons.forEach((button) => {
   }
 });
 
+buttons.forEach((button) => {
+  if (
+    operandButtons.includes(button.id) ||
+    operatorButtons.includes(button.id)
+  ) {
+    document.addEventListener("keydown", (e) => {
+      if (e.key == button.textContent) {
+        button.click();
+      }
+    });
+  } else if (button.id == "clear") {
+    document.addEventListener("keydown", (e) => {
+      if (e.key == "C" || e.key == "Escape") {
+        button.click();
+      }
+    });
+  } else if (button.id == "backspace") {
+    document.addEventListener("keydown", (e) => {
+      if (e.key == "Backspace") {
+        button.click();
+      }
+    });
+  } else if (button.id == "sign") {
+    document.addEventListener("keydown", (e) => {
+      if (e.key == "N" || e.key == "n") {
+        button.click();
+      }
+    });
+  } else if (button.id == "=") {
+    document.addEventListener("keydown", (e) => {
+      if (e.key == "=" || e.key == "Enter") {
+        button.click();
+      }
+    });
+  }
+});
+
 window.onload = () => {
   updateDisplay(displayValue);
 };
