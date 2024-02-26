@@ -1,14 +1,14 @@
 const display = document.querySelector(".display");
 const buttons = document.querySelectorAll("button");
 
-const numberButtons = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const operandButtons = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
 const operatorButtons = ["+", "-", "*", "/"];
 const maxDisplayWidth = 15;
 
 let firstOperand = null;
 let secondOperand = null;
 let operator = null;
-let displayValue = "";
+let displayValue = "0";
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -34,10 +34,30 @@ const roundToPrecision = (number, precision) => {
 };
 
 const populateDisplay = (value) => {
-  if (displayValue.length >= maxDisplayWidth) {
+  console.log("Populate display");
+  if (
+    displayValue.length >= maxDisplayWidth ||
+    (value === "." && displayValue.includes("."))
+  ) {
+    return;
+  }
+
+  if (displayValue === "0" && value !== ".") {
+    displayValue = value;
     return;
   }
   displayValue += value;
+  console.log("Display value: ", displayValue);
+};
+
+const dePopulateDisplay = () => {
+  console.log("De-populate display");
+  if (displayValue.length === 1) {
+    displayValue = "0";
+    return;
+  }
+  displayValue = displayValue.slice(0, -1);
+  console.log("Display value: ", displayValue);
 };
 
 const roundValue = (value) => {
@@ -58,7 +78,7 @@ const updateDisplay = (value) => {
 };
 
 const resetValues = () => {
-  displayValue = "";
+  displayValue = "0";
   firstOperand = null;
   secondOperand = null;
   operator = null;
@@ -71,12 +91,12 @@ const clearDisplay = () => {
 
 const addToOperand = () => {
   console.log("Add to operand");
-  console.log(operator, firstOperand, secondOperand);
   if (!operator) {
     firstOperand = displayValue;
   } else {
     secondOperand = displayValue;
   }
+  console.log(operator, firstOperand, secondOperand);
 };
 
 const evaluate = () => {
@@ -113,11 +133,11 @@ const clickOperator = (buttonId) => {
     evaluate();
   }
   operator = buttonId;
-  displayValue = "";
+  displayValue = "0";
 };
 
 buttons.forEach((button) => {
-  if (numberButtons.includes(button.id)) {
+  if (operandButtons.includes(button.id)) {
     button.addEventListener("click", () => {
       populateDisplay(button.id);
       addToOperand();
@@ -134,5 +154,15 @@ buttons.forEach((button) => {
     button.addEventListener("click", () => {
       clickEqual();
     });
+  } else if (button.id === "backspace") {
+    button.addEventListener("click", () => {
+      dePopulateDisplay();
+      addToOperand();
+      updateDisplay(displayValue);
+    });
   }
 });
+
+window.onload = () => {
+  updateDisplay(displayValue);
+};
