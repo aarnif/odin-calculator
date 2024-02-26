@@ -1,7 +1,20 @@
 const display = document.querySelector(".display");
 const buttons = document.querySelectorAll("button");
 
-const operandButtons = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
+const operandButtons = [
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  ".",
+  "sign",
+];
 const operatorButtons = ["+", "-", "*", "/"];
 const maxDisplayWidth = 15;
 
@@ -40,12 +53,15 @@ const populateDisplay = (value) => {
     (value === "." && displayValue.includes("."))
   ) {
     return;
-  }
-
-  if (displayValue === "0" && value !== ".") {
+  } else if (displayValue === "0" && value !== ".") {
     displayValue = value;
     return;
+  } else if (value === "sign") {
+    displayValue = parseFloat(displayValue) * -1;
+    displayValue = displayValue.toString();
+    return;
   }
+
   displayValue += value;
   console.log("Display value: ", displayValue);
 };
