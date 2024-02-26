@@ -3,6 +3,7 @@ const buttons = document.querySelectorAll("button");
 
 const numberButtons = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 const operatorButtons = ["+", "-", "*", "/"];
+const maxDisplayWidth = 15;
 
 let firstOperand = null;
 let secondOperand = null;
@@ -28,12 +29,32 @@ const operate = (operator, a, b) => {
   return calculations[operator];
 };
 
+const roundToPrecision = (number, precision) => {
+  return Math.round(number * Math.pow(10, precision)) / Math.pow(10, precision);
+};
+
 const populateDisplay = (value) => {
+  if (displayValue.length >= maxDisplayWidth) {
+    return;
+  }
   displayValue += value;
 };
 
+const roundValue = (value) => {
+  console.log("Round value");
+  const [integerPart, decimalPart] = value.split(".");
+  const roundingPrecision = maxDisplayWidth - integerPart.length - 1;
+  return roundToPrecision(value, roundingPrecision);
+};
+
 const updateDisplay = (value) => {
-  display.textContent = value;
+  console.log("Update display");
+  displayValue = value;
+  const valueToString = value.toString();
+  if (valueToString.includes(".") && valueToString.length > maxDisplayWidth) {
+    displayValue = roundValue(valueToString);
+  }
+  display.textContent = displayValue;
 };
 
 const resetValues = () => {
@@ -49,7 +70,7 @@ const clearDisplay = () => {
 };
 
 const addToOperand = () => {
-  console.log("add to operand");
+  console.log("Add to operand");
   console.log(operator, firstOperand, secondOperand);
   if (!operator) {
     firstOperand = displayValue;
@@ -70,9 +91,8 @@ const evaluate = () => {
   }
   const result = operate(operator, firstOperand, secondOperand);
   updateDisplay(result);
+  resetValues();
   firstOperand = result;
-  secondOperand = null;
-  operator = null;
 };
 
 const divideByZero = () => {
@@ -80,7 +100,7 @@ const divideByZero = () => {
 };
 
 const clickEqual = () => {
-  console.log("click Equal");
+  console.log("Click Equal");
   if (!firstOperand || !secondOperand || !operator) {
     return;
   }
@@ -88,7 +108,7 @@ const clickEqual = () => {
 };
 
 const clickOperator = (buttonId) => {
-  console.log("click Operator");
+  console.log("Click Operator");
   if (firstOperand && secondOperand && operator) {
     evaluate();
   }
