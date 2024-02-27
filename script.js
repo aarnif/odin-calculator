@@ -1,21 +1,11 @@
 const display = document.querySelector(".display");
 const buttons = document.querySelectorAll("button");
 
-const operandButtons = [
-  "0",
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  ".",
-  "sign",
-];
-const operatorButtons = ["+", "-", "*", "÷"];
+const operandButtons = document.querySelectorAll(".operand-button");
+const operatorButtons = document.querySelectorAll(".operator-button");
+const equalButton = document.getElementById("=");
+const backspaceButton = document.getElementById("backspace");
+const clearButton = document.getElementById("clear");
 const maxDisplayWidth = 10;
 
 let firstOperand = null;
@@ -152,69 +142,56 @@ const clickOperator = (buttonId) => {
   displayValue = "0";
 };
 
-buttons.forEach((button) => {
-  if (operandButtons.includes(button.id)) {
-    button.addEventListener("click", () => {
-      populateDisplay(button.id);
-      addToOperand();
-      updateDisplay(displayValue);
-    });
-  } else if (operatorButtons.includes(button.id)) {
-    button.addEventListener("click", () => clickOperator(button.id));
-  } else if (button.id === "clear") {
-    button.addEventListener("click", () => {
-      resetValues();
-      clearDisplay();
-    });
-  } else if (button.id === "=") {
-    button.addEventListener("click", () => {
-      clickEqual();
-    });
-  } else if (button.id === "backspace") {
-    button.addEventListener("click", () => {
-      dePopulateDisplay();
-      addToOperand();
-      updateDisplay(displayValue);
-    });
+const handleKeyboardInput = (e) => {
+  console.log("Keyboard input:", e.key);
+  if ((e.key >= 0 && e.key <= 9) || e.key === ".") {
+    populateDisplay(e.key);
+    addToOperand();
+    updateDisplay(displayValue);
+  } else if (e.key === "n" || e.key === "N") {
+    populateDisplay("sign");
+    addToOperand();
+    updateDisplay(displayValue);
+  } else if (["+", "-", "*", "/"].includes(e.key)) {
+    clickOperator(e.key);
+  } else if (e.key === "Enter") {
+    clickEqual();
+  } else if (e.key === "Backspace") {
+    dePopulateDisplay();
+    addToOperand();
+    updateDisplay(displayValue);
+  } else if (e.key === "Escape") {
+    resetValues();
+    clearDisplay();
   }
+};
+
+operandButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    populateDisplay(button.id);
+    addToOperand();
+    updateDisplay(displayValue);
+  });
 });
 
-buttons.forEach((button) => {
-  if (
-    operandButtons.includes(button.id) ||
-    operatorButtons.includes(button.id)
-  ) {
-    document.addEventListener("keydown", (e) => {
-      if (e.key == button.textContent) {
-        button.click();
-      }
-    });
-  } else if (button.id == "clear") {
-    document.addEventListener("keydown", (e) => {
-      if (e.key == "C" || e.key == "Escape") {
-        button.click();
-      }
-    });
-  } else if (button.id == "backspace") {
-    document.addEventListener("keydown", (e) => {
-      if (e.key == "Backspace") {
-        button.click();
-      }
-    });
-  } else if (button.id == "sign") {
-    document.addEventListener("keydown", (e) => {
-      if (e.key == "N" || e.key == "n") {
-        button.click();
-      }
-    });
-  } else if (button.id == "=") {
-    document.addEventListener("keydown", (e) => {
-      if (e.key == "=" || e.key == "Enter") {
-        button.click();
-      }
-    });
-  }
+operatorButtons.forEach((button) => {
+  button.addEventListener("click", () => clickOperator(button.id));
 });
+
+equalButton.addEventListener("click", clickEqual);
+
+backspaceButton.addEventListener("click", () => {
+  dePopulateDisplay();
+  addToOperand();
+  updateDisplay(displayValue);
+});
+
+clearButton.addEventListener("click", () => {
+  resetValues();
+  clearDisplay();
+});
+
+window.addEventListener("keydown", handleKeyboardInput);
 
 window.onload = () => {
   updateDisplay(displayValue);

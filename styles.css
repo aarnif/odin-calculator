@@ -63,19 +63,8 @@ button {
   color: #450a0a;
   border: 3px solid #7f1d1d;
   border-radius: 10px;
-  background-image: linear-gradient(to right, #ef4444, #dc2626);
   cursor: pointer;
   transition: transform 0.1s ease-in-out;
-}
-
-.button-zero {
-  width: 210px;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-button:hover {
-  background-image: linear-gradient(to right, #dc2626, #b91c1c);
 }
 
 button:active {
@@ -88,6 +77,16 @@ button:active {
 
 .operand-button:hover {
   background-image: linear-gradient(to right, #f87171, #ef4444);
+}
+
+.operator-button,
+.equal-button {
+  background-image: linear-gradient(to right, #ef4444, #dc2626);
+}
+
+.operator-button:hover,
+.equal-button:hover {
+  background-image: linear-gradient(to right, #dc2626, #b91c1c);
 }
 
 .delete-button {
